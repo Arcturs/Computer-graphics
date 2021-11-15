@@ -2,6 +2,8 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from OpenGL.GL import *
 
+from PyQt5.QtOpenGL import *
+
 from helpers import Init_Figures as init
 from main_classes import Interaction, Primitives, Scene
 
@@ -9,8 +11,9 @@ import numpy as np
 from numpy.linalg import inv, norm
 
 
-class Viewer(object):
-    def __init__(self):
+class Viewer(QGLWidget):
+    def __int__(self, parent=None):
+        QGLWidget.__init__(self, parent)
         self.create_interface()
         self.create_opengl()
         self.create_scene()
@@ -159,7 +162,6 @@ class Viewer(object):
     def rotate(self, x, y):
         start, direction = self.get_ray(x, y)
         self.scene.rotate(start, direction, self.inverse_model_view)
-
 
     def place(self, shape, x, y):
         '''Расположение нового примитива'''
